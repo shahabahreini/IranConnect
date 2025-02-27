@@ -1,78 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Search, ArrowLeft } from "lucide-react"
-
-type JobCardProps = {
-  title: string;
-  company: string;
-  location: string;
-  type: string;
-  skills: string[];
-  salary: string;
-  link: string;
-  badge?: {
-    bg: string;
-    text: string;
-    label: string;
-  };
-};
-
-const JobCard = ({ title, company, location, type, skills, salary, link, badge }: JobCardProps) => (
-  <div className="bg-[#F1FAEE] rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
-    <div className="flex items-start justify-between mb-4">
-      <div className="flex items-center">
-        <div className="w-12 h-12 bg-gray-200 rounded-md flex items-center justify-center ml-4">
-          <Image src="/placeholder.svg?height=48&width=48" alt="لوگوی شرکت" width={48} height={48} />
-        </div>
-        <div>
-          <h3 className="font-bold text-lg text-primary">{title}</h3>
-          <p className="text-gray-600">{company}</p>
-        </div>
-      </div>
-      {badge && <span className={`bg-${badge.bg} text-${badge.text} text-xs font-medium px-2.5 py-1 rounded-full`}>{badge.label}</span>}
-    </div>
-    <div className="mb-4">
-      <div className="flex items-center text-gray-500 mb-2">
-        <LocationIcon />
-        {location}
-      </div>
-      <div className="flex items-center text-gray-500">
-        <TimeIcon />
-        {type}
-      </div>
-    </div>
-    <div className="flex flex-wrap gap-2 mb-4">
-      {skills.map(skill => (
-        <span key={skill} className="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded">{skill}</span>
-      ))}
-    </div>
-    <div className="flex justify-between items-center">
-      <span className="text-primary font-medium">{salary}</span>
-      <Link href={link} className="text-secondary hover:text-opacity-80 font-medium">
-        مشاهده جزئیات
-      </Link>
-    </div>
-  </div>
-);
-
-const LocationIcon = ({ className = "" }: { className?: string }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className={`h-4 w-4 ml-2 ${className}`}
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-  </svg>
-);
-
-const TimeIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
-);
+import JobCard from "@/components/JobCard"
 
 export default function HomePage() {
   return (
@@ -105,8 +34,8 @@ export default function HomePage() {
       <section className="bg-gradient-to-l from-primary to-secondary text-white py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">اتصال متخصصان ایرانی-کانادایی</h1>
-            <p className="text-lg md:text-xl mb-8">فرصت‌های شغلی و معرفی‌ها را در جامعه ما پیدا کنید. ارتباطاتی بسازید که مسیر شغلی شما را پیش می‌برد.</p>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">سامانه کاریابی ایرانیان کانادا</h1>
+            <p className="text-lg md:text-xl mb-8">فرصت‌های شغلی و معرفی‌ها را در جامعه ما پیدا کنید.</p>
 
             {/* Quick Search Bar */}
             <div className="bg-white rounded-lg shadow-lg p-4 mb-8">
@@ -116,7 +45,10 @@ export default function HomePage() {
                   <input type="text" placeholder="عنوان شغلی، مهارت‌ها یا شرکت" className="w-full pr-10 pl-4 py-3 rounded-md border border-gray-200 focus:outline-none focus:ring-2 focus:ring-secondary text-gray-800 text-right" />
                 </div>
                 <div className="flex-1 relative">
-                  <LocationIcon className="absolute right-3 top-3 text-gray-400" />
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2 absolute right-3 top-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
                   <input type="text" placeholder="شهر یا استان" className="w-full pr-10 pl-4 py-3 rounded-md border border-gray-200 focus:outline-none focus:ring-2 focus:ring-secondary text-gray-800 text-right" />
                 </div>
                 <button className="bg-secondary text-white px-6 py-3 rounded-md hover:bg-opacity-90 transition-colors">جستجو</button>
@@ -124,10 +56,10 @@ export default function HomePage() {
             </div>
 
             <div className="flex flex-wrap justify-center gap-4">
-              <Link href="#" className="text-white bg-white/20 px-4 py-2 rounded-full hover:bg-white/30 transition-colors">توسعه نرم‌افزار</Link>
-              <Link href="#" className="text-white bg-white/20 px-4 py-2 rounded-full hover:bg-white/30 transition-colors">مهندسی</Link>
-              <Link href="#" className="text-white bg-white/20 px-4 py-2 rounded-full hover:bg-white/30 transition-colors">پزشکی</Link>
-              <Link href="#" className="text-white bg-white/20 px-4 py-2 rounded-full hover:bg-white/30 transition-colors">مالی</Link>
+              <Link href="#" className="text-white bg-white/20 px-4 py-2 rounded-full hover:bg-white/30 transition-colors">جنرال</Link>
+              <Link href="#" className="text-white bg-white/20 px-4 py-2 rounded-full hover:bg-white/30 transition-colors">تخصصی</Link>
+              <Link href="#" className="text-white bg-white/20 px-4 py-2 rounded-full hover:bg-white/30 transition-colors">پاره وقت</Link>
+              <Link href="#" className="text-white bg-white/20 px-4 py-2 rounded-full hover:bg-white/30 transition-colors">تمام وقت</Link>
             </div>
           </div>
         </div>
@@ -145,36 +77,35 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <JobCard
+              id="1"
               title="مهندس نرم‌افزار ارشد"
               company="تک‌کورپ"
               location="تورنتو، انتاریو (دورکاری)"
               type="تمام وقت"
               skills={["React", "Node.js", "AWS"]}
               salary="$120K - $150K CAD"
-              link="#"
-              badge={{ bg: "#E6F7F5", text: "secondary", label: "جدید" }}
+              tags={[{ text: "جدید", type: "new" }]}
             />
             <JobCard
+              id="2"
               title="مدیر محصول"
               company="نوآوران تک"
               location="ونکوور، بریتیش کلمبیا"
               type="تمام وقت"
               skills={["Agile", "SaaS", "B2B"]}
               salary="قابل مذاکره"
-              link="#"
-              badge={{ bg: "#FFF4E6", text: "accent", label: "ویژه" }}
+              tags={[{ text: "ویژه", type: "featured" }]}
             />
             <JobCard
+              id="3"
               title="مهندس عمران"
               company="مهندسین مشاور سازه‌گستر"
               location="مونترال، کبک"
               type="تمام وقت"
               skills={["AutoCAD", "مدیریت پروژه"]}
               salary="$90K - $110K CAD"
-              link="#"
-              badge={{ bg: "yellow-100", text: "yellow-800", label: "معرفی" }}
+              tags={[{ text: "معرفی", type: "referral" }]}
             />
-            {/* Add more JobCards as needed */}
           </div>
         </div>
       </section>
@@ -189,7 +120,6 @@ export default function HomePage() {
             <ProvinceLink href="/jobs/british-columbia" src="/flags/british-columbia.svg" alt="British Columbia" label="بریتیش کلمبیا" />
             <ProvinceLink href="/jobs/alberta" src="/flags/alberta.svg" alt="Alberta" label="آلبرتا" />
             <ProvinceLink href="/jobs/manitoba" src="/flags/manitoba.svg" alt="Manitoba" label="مانیتوبا" />
-            {/* Add more ProvinceLinks as needed */}
           </div>
         </div>
       </section>
@@ -310,5 +240,3 @@ const ContactItem = ({ icon, text }: ContactItemProps) => (
     <span className="text-gray-300">{text}</span>
   </li>
 );
-
-

@@ -1,6 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
+
 interface JobCardProps {
+  id: string;
   title: string
   company: string
   location: string
@@ -12,6 +14,7 @@ interface JobCardProps {
 }
 
 export default function JobCard({
+  id,
   title,
   company,
   location,
@@ -92,7 +95,7 @@ export default function JobCard({
       </div>
       <div className="flex justify-between items-center">
         <span className="text-primary font-medium">{salary}</span>
-        <Link href="#" className="text-secondary hover:text-opacity-80 font-medium">
+        <Link href={`/jobs/${id}`} className="text-secondary hover:text-opacity-80 font-medium">
           مشاهده جزئیات
         </Link>
       </div>
@@ -111,4 +114,3 @@ export default function JobCard({
     </div>
   )
 }
-
